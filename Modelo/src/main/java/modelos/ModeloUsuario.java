@@ -12,6 +12,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.util.List;
 import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import org.apache.logging.log4j.*;
 /**
  *
