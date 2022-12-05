@@ -13,6 +13,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.util.List;
 import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import org.apache.logging.log4j.*;
 
 /**
@@ -174,16 +177,21 @@ public class ModeloUsuario implements IModeloUsuario {
     @Override
     public Usuario registrar(Usuario usuario) throws PersistException, FacebootException {
         EntityManager em = this.conexionBD.crearConexion(); //Establece conexion con la BD
-        try {
-            if (existeEmail(usuario)) {
+        try
+        {
+            if(existeEmail(usuario)) {
                 throw new FacebootException("El email colocado ya esta registrado");
             }
-            em.getTransaction().begin();
-            em.persist(usuario);
-            em.getTransaction().commit();
+            if (validarFechaNac(usuario)) {
+                throw new FacebootException("debes ser mayor de edad");
+            }
+            em.getTransaction().begin(); //Comienza la Transacción
+            em.persist(usuario); //Agrega el usuario
+            em.getTransaction().commit(); //Termina Transacción
             log.info("Registro usuario " + usuario.getNombre());
             return usuario;
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException e)
+        {
             throw new PersistException("No se pudo registrar el usuario en la BD");
         }
     }
@@ -210,10 +218,17 @@ public class ModeloUsuario implements IModeloUsuario {
         }
         return false;
     }
-    /**
-     * Permite consultar todos los usuarios de la base de datos
-     * @return lista de usuarios registrados en base de datos
-     */
+    
+    public boolean validarFechaNac(Usuario usuario) {
+        LocalDate fechaNac = utils.ConversorFechas.toLocalDate(usuario.getFechaNacimiento());
+        LocalDate hoy = LocalDate.now();
+        long edad = ChronoUnit.YEARS.between(fechaNac, hoy);
+        if (edad < 18) {
+            return true;
+        }
+        return false;
+    }
+    
     public List<Usuario> consultarUsuarios() {
         EntityManager em = this.conexionBD.crearConexion();
         try {
