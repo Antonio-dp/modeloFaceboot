@@ -7,9 +7,14 @@ package interfaces;
 import jakarta.persistence.EntityManager;
 
 /**
- *
- * @author tonyd
+ * Fachada que permite realizar la conexion con la base de datos
+ * @author Jesus Valencia, Antonio del Pardo, Marco Irineo, Giovanni Garrido
  */
 public interface IConexionBD {
+    /**
+     * Crea la conexion con la base de datos de MySQL
+     * @return Regresa el manejador de eventos con la conexion a base de datos ya realizada
+     * @throws IllegalStateException Lanza una excepcion en caso de un fallo en la conexion con BD 
+     */
     public EntityManager crearConexion() throws IllegalStateException;
 }

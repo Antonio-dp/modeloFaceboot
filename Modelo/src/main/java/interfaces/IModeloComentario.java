@@ -12,7 +12,7 @@ import java.util.List;
  * @author tonyd
  */
 public interface IModeloComentario {
-    public Comentario consultar(Integer idComentario);
+    public Comentario consultar(Integer idComentario) throws NotFoundException;
     public Comentario eliminar(Comentario Comentario) throws PersistException;
     public Comentario registrar(Comentario comentario) throws PersistException;
     public List<Comentario> consultarComentarios(Integer idPublicacion) throws PersistException;

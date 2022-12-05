@@ -7,9 +7,13 @@ package interfaces;
 import entidades.Notificacion;
 
 /**
- *
- * @author jegav
+ * Interfaz que permite enviar una notificacion
+ * @author Jesus Valencia, Antonio del Pardo, Marco Irineo, Giovanni Garrido
  */
 public interface INotificador {
+    /**
+     * Permite notificar un mensaje dado por el parametro
+     * @param notificacion mensaje a notificar
+     */
     public void notificar(Notificacion notificacion);
 }

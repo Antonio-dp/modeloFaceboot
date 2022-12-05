@@ -10,21 +10,33 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 /**
- *
- * @author tonyd
+ * Clase que permite realizar la conexion con la base de datos
+ * @author Jesus Valencia, Antonio del Pardo, Marco Irineo, Giovanni Garrido
  */
 public class ConexionBD implements IConexionBD{
-    
+    /**
+     * Objeto estatico que permite realizar la conexion con base de datos
+     */
     private static ConexionBD conexion;
+    /**
+     * Objeto de tipo EntityManajer para crear la conexion con base de datos 
+     */
     private EntityManager manejadorEntidades;
-    
+    /**
+     * Constructor con patron singleton que permite crear una sola instancia de la clase
+     * @return Instancia unica de la clase
+     */
     public static ConexionBD getInstance(){
         if(conexion == null){
             conexion = new ConexionBD();
         }
         return conexion;
     }
-    
+    /**
+     * Crea la conexion con la base de datos de MySQL
+     * @return Regresa el manejador de eventos con la conexion a base de datos ya realizada
+     * @throws IllegalStateException Lanza una excepcion en caso de un fallo en la conexion con BD
+     */
     @Override
     public EntityManager crearConexion() throws IllegalStateException {
         if(manejadorEntidades == null){
