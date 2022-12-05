@@ -15,7 +15,6 @@ import java.util.List;
 import jakarta.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import org.apache.logging.log4j.*;
 
 /**
