@@ -218,7 +218,12 @@ public class ModeloUsuario implements IModeloUsuario {
         }
         return false;
     }
-    
+    /**
+     * Permite saber si la fecha de nacimiento es valida para autorizar el
+     * registro del usuario
+     * @param usuario usuario con fecha
+     * @return boolean para saber si cumple con el minimo de edad requerido
+     */
     public boolean validarFechaNac(Usuario usuario) {
         LocalDate fechaNac = utils.ConversorFechas.toLocalDate(usuario.getFechaNacimiento());
         LocalDate hoy = LocalDate.now();
@@ -228,7 +233,10 @@ public class ModeloUsuario implements IModeloUsuario {
         }
         return false;
     }
-    
+    /**
+     * Permite consultar a todos los usuarios de la base de datos
+     * @return lista con usuarios
+     */
     public List<Usuario> consultarUsuarios() {
         EntityManager em = this.conexionBD.crearConexion();
         try {
