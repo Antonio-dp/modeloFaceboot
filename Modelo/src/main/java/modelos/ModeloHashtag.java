@@ -70,9 +70,16 @@ public class ModeloHashtag implements IModeloHashtag {
         for (Hashtag hashtag : hashtags) {
             if (!existeHashtag(hashtag)) {
                 this.registrar(hashtag);
-                log.info("Registro de Hashtags" + hashtag.getId());
             }
-        }
+            Hashtag hashtagRegistrado;
+            try {
+                hashtagRegistrado = this.consultarPorTema(hashtag.getTema());
+                hashtagsRegistrados.add(hashtagRegistrado);
+                log.info("Registro de Hashtags" + hashtagRegistrado.getId());
+            } catch (Exception ex) {
+                throw new PersistException("No se pudo registrar en la BD");
+            }
+    }
         return hashtagsRegistrados;
     }
     /**
